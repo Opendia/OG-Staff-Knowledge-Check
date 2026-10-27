@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Staff Test Admin</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/admin.css">
+</head>
+<body>
+
+<header class="band">
+  <div class="wrap">
+    <img class="crest" src="assets/logo.png" alt="Old Guys Wardogs crest">
+    <div class="band-text">
+      <span class="eyebrow">Old Guys Wardogs · Sr. Staff +</span>
+      <h1>Staff Test Admin</h1>
+      <p class="sub">Results, grading and questions.</p>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs" hidden>
+  <div class="wrap">
+    <div class="tabs-inner">
+      <button type="button" class="tab on" data-tab="results">Results</button>
+      <button type="button" class="tab" data-tab="questions">Questions</button>
+      <button type="button" class="tab" data-tab="settings">Settings</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="logout">Log out</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+
+    <!-- Login -->
+    <section id="view-login" class="card login">
+      <div class="head">
+        <span class="tag"><span class="wings" aria-hidden="true"><i></i><i></i><i></i></span>Restricted</span>
+        <h2>Enter admin token</h2>
+        <p class="lead">Only Sr. Staff and above have the token. Too many wrong tries locks admin access for 15 minutes.</p>
+      </div>
+      <form id="login-form" novalidate>
+        <div style="display:grid;gap:16px">
+          <div class="field">
+            <label for="token">Admin token</label>
+            <input type="password" id="token" autocomplete="current-password">
+          </div>
+          <p class="err" id="login-err" role="alert" hidden></p>
+          <div class="row"><button class="btn btn-primary" type="submit" id="login-btn">Open admin panel</button></div>
+        </div>
+      </form>
+    </section>
+
+    <!-- Results list -->
+    <section id="view-results" hidden>
+      <div class="stats" id="stats"></div>
+      <div class="card">
+        <div class="spread">
+          <div class="filters" id="level-filter">
+            <button type="button" class="chip-btn on" data-l="0">All</button>
+            <button type="button" class="chip-btn" data-l="1">Trial Staff</button>
+            <button type="button" class="chip-btn" data-l="2">Staff</button>
+            <button type="button" class="chip-btn" data-l="3">Sr. Staff</button>
+          </div>
+          <div class="row">
+            <label class="sr" for="search">Search by name</label>
+            <input type="text" id="search" placeholder="Search name" style="width:200px;padding:8px 10px">
+            <button type="button" class="btn btn-ghost btn-sm" id="refresh">Refresh</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="results">
+            <thead><tr><th>Name</th><th>Role</th><th>Submitted</th><th>Multiple choice</th><th>Grade</th><th>Written</th></tr></thead>
+            <tbody id="results-body"></tbody>
+          </table>
+        </div>
+        <p class="muted small" id="results-empty" hidden></p>
+      </div>
+    </section>
+
+    <!-- Result detail -->
+    <section id="view-detail" hidden>
+      <button type="button" class="btn btn-ghost btn-sm" id="detail-back">← All results</button>
+      <div id="detail"></div>
+    </section>
+
+    <!-- Questions editor -->
+    <section id="view-questions" hidden>
+      <div class="card">
+        <div class="spread">
+          <div class="filters" id="q-level">
+            <button type="button" class="chip-btn on" data-l="1">Level 1 · Trial Staff</button>
+            <button type="button" class="chip-btn" data-l="2">Level 2 · Staff</button>
+            <button type="button" class="chip-btn" data-l="3">Level 3 · Sr. Staff</button>
+          </div>
+        </div>
+        <p class="muted small">Changes only apply to new tests. Results already submitted keep the questions they were given.</p>
+      </div>
+      <div id="q-editor"></div>
+      <div class="savebar" id="savebar">
+        <div class="wrap">
+          <span id="save-state" class="small muted">No changes</span>
+          <div class="row">
+            <button type="button" class="btn btn-ghost btn-sm" id="q-discard" disabled>Discard changes</button>
+            <button type="button" class="btn btn-primary btn-sm" id="q-save" disabled>Save level</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings -->
+    <section id="view-settings" hidden>
+      <div class="card">
+        <div class="head">
+          <span class="tag"><span class="wings" aria-hidden="true"><i></i><i></i><i></i></span>Security</span>
+          <h2>Change admin token</h2>
+          <p class="lead">Everyone who uses the admin panel will need the new token. It's stored hashed, so it can't be recovered. Write it down.</p>
+        </div>
+        <form id="token-form" novalidate>
+          <div style="display:grid;gap:16px">
+            <div class="field"><label for="new-token">New token</label><input type="password" id="new-token" autocomplete="new-password"><span class="hint">At least 12 characters. Longer is safer.</span></div>
+            <div class="field"><label for="new-token-2">Type it again</label><input type="password" id="new-token-2" autocomplete="new-password"></div>
+            <p class="err" id="token-err" role="alert" hidden></p>
+            <p class="ok-msg" id="token-ok" role="status" hidden>Token changed. Use the new one from now on.</p>
+            <div class="row"><button class="btn btn-primary" type="submit">Change token</button></div>
+          </div>
+        </form>
+      </div>
+      <div class="card">
+        <div class="head"><h2>Grading scale</h2><p class="lead">Used for the multiple choice section. Written answers aren't graded automatically.</p></div>
+        <div class="scale"><span class="pill good">A · 90–100%</span><span class="pill good">B · 80–89%</span><span class="pill warn">C · 70–79%</span><span class="pill warn">D · 60–69%</span><span class="pill bad">F · under 60%</span></div>
+      </div>
+    </section>
+
+  </div>
+</main>
+<div class="toast" id="toast" role="status" hidden></div>
+<footer>Old Guys Wardogs · Staff Test Admin</footer>
+
+<script src="assets/config.js"></script>
+<script src="assets/api.js"></script>
+<script src="assets/admin.js"></script>
+</body>
+</html>

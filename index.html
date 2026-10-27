@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OG Wardogs Staff Test</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="band">
+  <div class="wrap">
+    <img class="crest" src="assets/logo.png" alt="Old Guys Wardogs crest">
+    <div class="band-text">
+      <span class="eyebrow">Old Guys Wardogs · Staff only</span>
+      <h1>Staff Knowledge Check</h1>
+      <p class="sub" id="band-sub">Show what you know from the Staff Handbook.</p>
+    </div>
+  </div>
+</header>
+
+<div class="progress-bar" id="progress" hidden>
+  <div class="wrap narrow">
+    <div class="spread small"><span id="prog-label">Question 1 of 20</span><span class="muted" id="prog-who"></span></div>
+    <div class="track" aria-hidden="true"><i id="prog-fill"></i></div>
+  </div>
+</div>
+
+<main>
+  <div class="wrap narrow">
+
+    <!-- 1. Registration -->
+    <section id="view-register" class="card">
+      <div class="head">
+        <span class="tag"><span class="wings" aria-hidden="true"><i></i><i></i><i></i></span>Before you start</span>
+        <h2>Register for your test</h2>
+        <p class="lead">Enter your name and pick your current role. Your role decides which test you get.</p>
+      </div>
+      <form id="reg-form" novalidate>
+        <div style="display:grid;gap:20px">
+          <div class="field">
+            <label for="username">Username</label>
+            <input type="text" id="username" autocomplete="nickname" maxlength="40" placeholder="Your in-game or Discord name">
+            <span class="hint">Use the name Sr. Staff know you by.</span>
+          </div>
+          <div class="field">
+            <span class="label" id="role-label">Your role</span>
+            <div class="roles" role="radiogroup" aria-labelledby="role-label">
+              <label class="role-opt"><input type="radio" name="level" id="lvl-1" value="1"><b>Trial Staff<span class="lvl">Level 1</span></b><span>General questions you can answer with the Staff Handbook.</span></label>
+              <label class="role-opt"><input type="radio" name="level" id="lvl-2" value="2"><b>Staff<span class="lvl">Level 2</span></b><span>Real situations. Shows you can apply the rules.</span></label>
+              <label class="role-opt"><input type="radio" name="level" id="lvl-3" value="3"><b>Sr. Staff<span class="lvl">Level 3</span></b><span>The hardest test. Answers need to be exact.</span></label>
+            </div>
+          </div>
+          <div class="notice small">The test has <b>10 multiple choice</b> and <b>10 written</b> questions. Your answers save on this device as you go, so it's safe to refresh. Take your time.</div>
+          <p class="err" id="reg-err" role="alert" hidden></p>
+          <div class="row"><button class="btn btn-primary" type="submit" id="start-btn">Start test</button></div>
+        </div>
+      </form>
+    </section>
+
+    <!-- 2. Question -->
+    <section id="view-test" class="card" hidden aria-live="polite">
+      <span class="q-kind" id="q-kind">Multiple choice</span>
+      <p class="q-text" id="q-text"></p>
+      <div id="q-body"></div>
+      <div class="spread">
+        <button class="btn btn-ghost" type="button" id="prev-btn">← Back</button>
+        <button class="btn btn-primary" type="button" id="next-btn">Next →</button>
+      </div>
+    </section>
+    <section id="nav-card" class="card" hidden>
+      <div class="spread"><span class="label">Jump to a question</span><span class="hint">Grey = answered</span></div>
+      <div class="dots" id="dots"></div>
+    </section>
+
+    <!-- 3. Review -->
+    <section id="view-review" class="card" hidden>
+      <div class="head">
+        <span class="tag"><span class="wings" aria-hidden="true"><i></i><i></i><i></i></span>Almost done</span>
+        <h2>Check your answers</h2>
+        <p class="lead">Tap any question to go back and change it. When you're happy, submit.</p>
+      </div>
+      <ul class="review-list" id="review-list"></ul>
+      <div class="confirm" id="confirm" hidden>
+        <p id="confirm-text"><b>Submit your test?</b> You can't change your answers after this.</p>
+        <div class="row">
+          <button class="btn btn-primary" type="button" id="confirm-yes">Yes, submit</button>
+          <button class="btn btn-ghost" type="button" id="confirm-no">Not yet</button>
+        </div>
+      </div>
+      <p class="err" id="submit-err" role="alert" hidden></p>
+      <div class="spread" id="review-actions">
+        <button class="btn btn-ghost" type="button" id="back-to-test">← Back to questions</button>
+        <button class="btn btn-primary" type="button" id="submit-btn">Submit test</button>
+      </div>
+    </section>
+
+    <!-- 4. Thank you -->
+    <section id="view-thanks" class="card thanks" hidden>
+      <img src="assets/logo.png" alt="">
+      <h2>Thank you</h2>
+      <p>Your test has been submitted. A member of Sr. Staff will be in touch to go over your grade with you.</p>
+    </section>
+
+  </div>
+</main>
+<footer>Old Guys Wardogs · Staff Knowledge Check</footer>
+
+<script src="assets/config.js"></script>
+<script src="assets/api.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
