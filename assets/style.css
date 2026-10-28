@@ -120,7 +120,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--fg);box-
 .dot.sep{margin-left:10px}
 .review-list{display:grid;gap:8px;margin:0;padding:0;list-style:none}
 .review-list li{display:flex;gap:12px;align-items:baseline;justify-content:space-between;padding:10px 12px;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
-.review-list li span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pill{display:inline-block;font:500 12px var(--f-mono);letter-spacing:.04em;padding:3px 8px;border-radius:6px;white-space:nowrap}
 .pill.good{background:var(--good-bg);color:var(--good)}
 .pill.warn{background:var(--sev-1-bg);color:var(--sev-1)}
@@ -143,3 +142,15 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding:0 16px max(28
 .role-opt span{font-weight:400}
 .role-opt .lvl{font-size:11px;color:var(--brass);font-weight:500}
 .opt{font-weight:500}
+.role-opt{align-items:center}
+.role-opt input{margin:0;grid-row:auto}
+/* Review list: one tidy row per question */
+#view-review > *{min-width:0}
+.review-list{min-width:0}
+.review-list li{display:block;padding:0;background:none;border:0}
+.review-list .rv{display:grid;grid-template-columns:2.2em minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border-radius:8px;background:var(--bg);border:1px solid var(--line);color:var(--fg);text-decoration:none;min-width:0}
+.review-list .rv:hover{border-color:var(--fg)}
+.rv-n{font:500 13px var(--f-mono);color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.rv-q{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px}
+.review-list .pill{justify-self:end}
+@media (max-width:520px){.rv-q{white-space:normal;overflow:visible;font-size:14.5px;line-height:1.4}.review-list .rv{align-items:start;gap:10px}.rv-n{padding-top:1px}}

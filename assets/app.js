@@ -101,7 +101,7 @@
   function openReview() {
     const list = $("review-list");
     list.innerHTML = S.questions.map((q, i) =>
-      `<li><a href="#" data-i="${i}"><span>${i + 1}. ${esc(q.prompt)}</span></a>${answered(q) ? '<span class="pill good">Answered</span>' : '<span class="pill warn">Blank</span>'}</li>`).join("");
+      `<li><a href="#" data-i="${i}" class="rv"><span class="rv-n">${i + 1}</span><span class="rv-q">${esc(q.prompt)}</span>${answered(q) ? '<span class="pill good">Answered</span>' : '<span class="pill warn">Blank</span>'}</a></li>`).join("");
     $("confirm").hidden = true; $("review-actions").hidden = false; $("submit-err").hidden = true;
     updateProgress("Review · " + countDone() + " of " + S.questions.length + " answered");
     show("review");
