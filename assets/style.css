@@ -154,3 +154,10 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding:0 16px max(28
 .rv-q{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px}
 .review-list .pill{justify-self:end}
 @media (max-width:520px){.rv-q{white-space:normal;overflow:visible;font-size:14.5px;line-height:1.4}.review-list .rv{align-items:start;gap:10px}.rv-n{padding-top:1px}}
+
+/* Corner button (admin / back to test) */
+.corner-btn{position:absolute;z-index:2;top:max(10px,env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));display:inline-flex;align-items:center;gap:6px;padding:6px 10px 6px 8px;border-radius:8px;border:1px solid var(--hero-line);background:rgba(255,255,255,.04);color:var(--hero-muted);font:500 12.5px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
+.corner-btn:hover{color:var(--hero-fg);border-color:var(--hero-muted);background:rgba(255,255,255,.08)}
+@media (max-width:1100px){.band .wrap{padding-top:max(56px,env(safe-area-inset-top,0px))}}
+.switch{display:inline-flex;align-items:center;gap:10px;cursor:pointer}
+.switch input{width:18px;height:18px;accent-color:var(--fg)}

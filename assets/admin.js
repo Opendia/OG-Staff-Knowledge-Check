@@ -2,7 +2,7 @@
   const $ = id => document.getElementById(id);
   const ROLES = { 1: "Trial Staff", 2: "Staff", 3: "Sr. Staff" };
   const TKEY = "ogtest-admin-token";
-  let token = store.get(TKEY, true) || "";
+  let token = cookie.get(TKEY) || store.get(TKEY, true) || "";
   let results = [], levelFilter = 0;
   let allQuestions = [], qLevel = 1, draft = null, dirty = false;
 
@@ -52,15 +52,20 @@
     const btn = $("login-btn"); busy(btn, "Checking");
     try {
       token = t; await call("login");
-      store.set(TKEY, token, true); $("token").value = "";
+      saveToken($("remember").checked); $("token").value = "";
       show("results"); loadResults();
     } catch (ex) { token = ""; err.textContent = ex.message; err.hidden = false; }
     finally { unbusy(btn); }
   });
-  $("logout").addEventListener("click", () => { token = ""; store.del(TKEY, true); results = []; show("login"); });
+  $("logout").addEventListener("click", () => { token = ""; clearToken(); results = []; show("login"); });
+  function saveToken(remember) {
+    store.set(TKEY, token, true);
+    if (remember) cookie.set(TKEY, token, 30); else cookie.del(TKEY);
+  }
+  function clearToken() { store.del(TKEY, true); cookie.del(TKEY); }
 
   function handleAuth(ex) {
-    if (/token/i.test(ex.message)) { token = ""; store.del(TKEY, true); show("login"); $("login-err").textContent = ex.message; $("login-err").hidden = false; return true; }
+    if (/token/i.test(ex.message)) { token = ""; clearToken(); show("login"); $("login-err").textContent = ex.message; $("login-err").hidden = false; return true; }
     return false;
   }
 
@@ -316,7 +321,7 @@
     const btn = e.submitter || e.target.querySelector("button"); busy(btn, "Saving");
     try {
       await call("changeToken", { newToken: a });
-      token = a; store.set(TKEY, token, true);
+      token = a; saveToken(!!cookie.get(TKEY));
       $("new-token").value = ""; $("new-token-2").value = ""; ok.hidden = false;
     } catch (ex) { if (!handleAuth(ex)) { err.textContent = ex.message; err.hidden = false; } }
     finally { unbusy(btn); }

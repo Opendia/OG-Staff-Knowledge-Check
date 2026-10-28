@@ -15,6 +15,7 @@
 <body>
 
 <header class="band">
+  <a class="corner-btn" href="./" title="Back to the test" aria-label="Back to the test"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg><span>Test</span></a>
   <div class="wrap">
     <img class="crest" src="assets/logo.png" alt="Old Guys Wardogs crest">
     <div class="band-text">
@@ -52,6 +53,7 @@
             <label for="token">Admin token</label>
             <input type="password" id="token" autocomplete="current-password">
           </div>
+          <label class="switch small" style="font-weight:500"><input type="checkbox" id="remember" checked> Remember me on this device for 30 days</label>
           <p class="err" id="login-err" role="alert" hidden></p>
           <div class="row"><button class="btn btn-primary" type="submit" id="login-btn">Open admin panel</button></div>
         </div>

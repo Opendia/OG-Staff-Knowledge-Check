@@ -21,6 +21,20 @@ window.store = {
   del(k, s) { try { (s ? sessionStorage : localStorage).removeItem(k); } catch (e) {} }
 };
 
+window.cookie = {
+  get(k) {
+    const m = document.cookie.split("; ").find(c => c.indexOf(k + "=") === 0);
+    return m ? decodeURIComponent(m.slice(k.length + 1)) : "";
+  },
+  set(k, v, days) {
+    const secure = location.protocol === "https:" ? "; Secure" : "";
+    document.cookie = k + "=" + encodeURIComponent(v) + "; Max-Age=" + Math.round(days * 86400) + "; Path=" + cookiePath() + "; SameSite=Strict" + secure;
+  },
+  del(k) { document.cookie = k + "=; Max-Age=0; Path=" + cookiePath() + "; SameSite=Strict"; }
+};
+// Scope the cookie to this site's folder (e.g. /repo-name/) rather than the whole github.io domain.
+function cookiePath() { const p = location.pathname; return p.slice(0, p.lastIndexOf("/") + 1) || "/"; }
+
 window.esc = function (s) {
   return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 };
